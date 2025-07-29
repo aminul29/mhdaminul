@@ -33,14 +33,23 @@ require_once GRIDOS_INCLUDES_DIR . '/metabox/meta-box.php';
 require_once GRIDOS_INCLUDES_DIR . '/customize.php';
 
 
-/** Add the Elementor compatibility file */
+if ( ! isset( $content_width ) ) {
+    $content_width = 1140;
+}
+
+/** Add the Elementor compatibility files */
 if ( defined( 'ELEMENTOR_VERSION' ) ) {
-    require_once( GRIDOS_ELEMENTOR_DIR . '/elementor-script.php' );
+    require_once GRIDOS_ELEMENTOR_DIR . '/class-gridos-elementor.php';
+    
+    // Initialize Elementor features
+    add_action( 'init', function() {
+        Gridos_Elementor::instance();
+    }, 0 );
 }
 
 // Register Elementor Locations
 function gridos_register_elementor_locations( $elementor_theme_manager ) {
-	$elementor_theme_manager->register_all_core_location();
+    $elementor_theme_manager->register_all_core_location();
 }
 add_action( 'elementor/theme/register_locations', 'gridos_register_elementor_locations' );
 
@@ -48,6 +57,7 @@ add_action( 'elementor/theme/register_locations', 'gridos_register_elementor_loc
 require_once get_template_directory() . '/includes/gridos-after-setup.php';
 require_once get_template_directory() . '/includes/gridos-widgets.php';
 require_once get_template_directory() . '/includes/gridos-scripts.php';
+require_once get_template_directory() . '/includes/elementor-functions.php';
 require_once get_template_directory() . '/includes/other-functions.php';
 require_once get_template_directory() . '/includes/gridos-filter.php';
 require_once get_template_directory() . '/includes/gridos_loadmore.php';
@@ -77,3 +87,5 @@ add_action('add_attachment', function($post_ID) {
         ]);
     }
 });
+
+// Test Comment

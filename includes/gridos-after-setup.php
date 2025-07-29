@@ -9,6 +9,10 @@ function gridos_setup() {
     add_theme_support( 'custom-logo' );
     add_theme_support( 'widgets' );
     add_theme_support('category-thumbnails');
+    add_theme_support( 'elementor' );
+    add_theme_support( 'elementor-pro' );
+    // Add support for full width Elementor sections
+    add_theme_support( 'align-wide' );
     add_theme_support(
 		'html5',
 		array(
